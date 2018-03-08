@@ -22,7 +22,7 @@
     console.log('Truck #' + this.truckId + ' has pending orders:');
     customerIdArray.forEach(function (id) {
       console.log(this.db.get(id));
-    });
+    }.bind(this));
   };
 
   App.Truck = Truck;
