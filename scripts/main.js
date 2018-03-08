@@ -9,6 +9,11 @@
   window.myTruck = myTruck;
   var formHandler = new FormHandler(FORM_SELECTOR);
 
+  var FORM_PAYMENT = "[data-payment-info=\"form\"]";
+  var paymentHandler = new FormHandler(FORM_PAYMENT);
+
+
   formHandler.addSubmitHandler(myTruck.createOrder.bind(myTruck));
+  paymentHandler.addSubmitHandler(myTruck.createOrder.bind(myTruck));
   console.log(formHandler);
 })(window);
