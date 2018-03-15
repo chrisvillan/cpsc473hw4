@@ -1,10 +1,10 @@
-(function (window) {
+(function(window) {
   "use strict";
   var App = window.App || {};
   var $ = window.jQuery;
 
   function FormHandler(selector) {
-    if(!selector) {
+    if (!selector) {
       throw new Error("No selector provided");
     }
 
@@ -14,20 +14,21 @@
     }
   }
 
-  FormHandler.prototype.addSubmitHandler = function (fn) {
+  FormHandler.prototype.addSubmitHandler = function(fn) {
+    /*eslint-disable no-console*/
     console.log("Setting submit handler for form");
-    this.$formElement.on("submit", function(event){
+    this.$formElement.on("submit", function(event) {
       event.preventDefault();
 
       var data = {};
-      $(this).serializeArray().forEach(function (item) {
+      $(this).serializeArray().forEach(function(item) {
         data[item.name] = item.value;
         console.log(item.name + " is " + item.value);
       });
       console.log(data);
       fn(data);
       this.reset();
-      this.elements[0].focus()
+      this.elements[0].focus();
 
       var modal = document.getElementById("myModal");
       var btn = document.getElementById("myBtn");
@@ -47,15 +48,15 @@
     });
   };
 
-  FormHandler.prototype.addInputHandler = function (fn) {
+  FormHandler.prototype.addInputHandler = function(fn) {
     console.log("Setting input handler for form");
-    this.$formElement.on("input","[name='emailAddress']", function (event){
+    this.$formElement.on("input", "[name='emailAddress']", function(event) {
       var emailAddress = event.target.value;
       var message = "";
-      if (fn(emailAddress)){
+      if (fn(emailAddress)) {
         event.target.setCustomValidity("");
       } else {
-        message = emailAddress + " is not an authorized emai address!"
+        message = emailAddress + " is not an authorized emai address!";
         event.target.setCustomValidity(message);
       }
     });

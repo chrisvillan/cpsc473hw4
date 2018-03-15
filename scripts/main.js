@@ -1,4 +1,4 @@
-(function (window) {
+(function(window) {
   "use strict";
   var FORM_SELECTOR = "[data-coffee-order='form']";
   var FORM_PAYMENT = "[data-payment-info='form']";
@@ -20,7 +20,7 @@
   var paymentHandler = new FormHandler(FORM_PAYMENT);
 
 
-  formHandler.addSubmitHandler(function (data){
+  formHandler.addSubmitHandler(function(data) {
     myTruck.createOrder.call(myTruck, data);
     checkList.addRow.call(checkList, data);
   });
