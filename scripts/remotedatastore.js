@@ -17,25 +17,50 @@
     });
   };
 
-  RemoteDataStore.prototype.getAll = function () {
-    $.get(this.serverUrl, function (serverResponse) {
-      console.log(serverResponse);
-      cb(serverResponse);
+  RemoteDataStore.prototype.getAll = function (cb) {
+    $.ajax(this.serverUrl + "coffeeorders/", {
+      type: "GET",
+      success: function(serverResponse) {
+        console.log(serverResponse);
+        cb(serverResponse);
+      },
+      error: function(xhr){
+        alert(xhr.responseText);
+      }
     });
   };
 
+
   RemoteDataStore.prototype.get = function (key,cb) {
-    $.get(this.serverUrl + '/' + key, function (serverResponse) {
-      console.log(serverResponse);
-      cb(serverResponse);
+    $.ajax("coffeeorders/" + key, {
+      type: "GET",
+      success: function(serverResponse) {
+        console.log(serverResponse);
+        cb(serverResponse);
+      },
+      error: function(xhr){
+        alert(xhr.responseText);
+      }
     });
   };
 
   RemoteDataStore.prototype.remove = function (key) {
-    $.ajax(this.serverUrl + "/" + key, {
-      type: "DELETE"
+    $.ajax(this.serverUrl + "?emailAddress=" + key, {
+      type: "GET",
+      success: function(serverResponse) {
+        $.ajax("http://localhost:2403/coffeeorders" + "/" + serverResponse[0].id,{
+          type: "DELETE",
+          error: function(xhr){
+            alert(xhr.responseText);
+          }
+        });
+      },
+      error: function(xhr){
+        alert(xhr.responseText);
+      }
     });
   };
+
 
   App.RemoteDataStore = RemoteDataStore;
   window.App = App;
